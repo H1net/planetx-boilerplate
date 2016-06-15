@@ -6,13 +6,10 @@ import reactMixin from 'react-mixin';
 
 import Paper from 'material-ui/Paper';
 import TaskTitle    from './Title.jsx'
-import CompleteTask from './Complete.jsx';
+import TaskCompleteBtn from './SetComplete.jsx';
 import UnCompleteTask from './UnComplete.jsx';
-import RemoveTask   from './Remove.jsx';
-// import TaskStats   from './Stats.jsx';
-//   <TaskStats
-//     taskId = {this.props.taskId}
-//   />
+import RemoveTaskBtn   from './Remove.jsx';
+import TaskGoal from './goal/TaskGoal.jsx';
 
 // TaskItem: a single task item
 class TaskItem extends Component {
@@ -21,7 +18,7 @@ class TaskItem extends Component {
       marginTop: 2,
       padding: "4px 0",
     };
-    const isCompleted = this.props.completed;
+    const isCompleted = this.props.isCompleted;
 
     if(isCompleted){
       return (
@@ -36,6 +33,11 @@ class TaskItem extends Component {
   }
 
   renderCompletedItem() {
+    // import TaskStats   from './Stats.jsx';
+    //   <TaskStats
+    //     taskId = {this.props.taskId}
+    //   />
+    
     const style = {
       position: "relative",
       width: "100%",
@@ -45,7 +47,7 @@ class TaskItem extends Component {
       <div style={style}>
         <TaskTitle
           title = {this.props.text}
-          completed = {this.props.completed}
+          isCompleted = {this.props.isCompleted}
         />
         <UnCompleteTask
           taskId = {this.props.taskId}
@@ -60,39 +62,75 @@ class TaskItem extends Component {
       width: "100%",
       height: "100%",
     };
-    return (
+    const notGoaled = (
       <div style={style}>
-        <CompleteTask
-          taskId = {this.props.taskId}
-          onComplete = {this.props.onComplete}
+        <TaskCompleteBtn
+          taskId =      {this.props.taskId}
+          onComplete =  {this.props.onComplete}
         />
         <TaskTitle
-          title = {this.props.text}
-          completed = {this.props.completed}
+          title =       {this.props.text}
+          isCompleted =   {this.props.isCompleted}
         />
-        <RemoveTask
-          taskId = {this.props.taskId}
-          onDelete = {this.props.onDelete}
+        <TaskGoal
+          taskId =      {this.props.taskId}
+          completeBy =  {this.props.completeBy}
+          onGoalset =   {this.props.onGoalset}
+        />
+        <RemoveTaskBtn
+          taskId =      {this.props.taskId}
+          onDelete =    {this.props.onDelete}
         />
       </div>
     );
+    const isGoaled = (
+      <div style={style}>
+        <TaskCompleteBtn
+          taskId =      {this.props.taskId}
+          onComplete =  {this.props.onComplete}
+        />
+        <TaskGoal
+          taskId =      {this.props.taskId}
+          completeBy =  {this.props.completeBy}
+          onGoalset =   {this.props.onGoalset}
+        />
+        <TaskTitle
+          title =       {this.props.text}
+          isCompleted =   {this.props.isCompleted}
+        />
+        <RemoveTaskBtn
+          taskId =      {this.props.taskId}
+          onDelete =    {this.props.onDelete}
+        />
+      </div>
+    );
+    if(this.props.isGoaled){
+      return isGoaled;
+    } else {
+      return notGoaled;
+    }
   }
 }
 
 TaskItem.propTypes = {
   taskId: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  completed: PropTypes.bool.isRequired,
+  isCompleted: PropTypes.bool.isRequired,
   onComplete: PropTypes.func.isRequired,
+  isGoaled: PropTypes.bool.isRequired,
+  onGoalset: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 
-const TaskItemContainer = createContainer( ({ taskId, text, completed, onComplete, onDelete })=> {
+const TaskItemContainer = createContainer( ({ taskId, text, isCompleted, onComplete, isGoaled, completeBy, onGoalset, onDelete })=> {
   return {
     taskId: taskId,
     text: text,
-    completed: completed? true:false,
+    isCompleted: isCompleted? true:false,
     onComplete: onComplete,
+    isGoaled: isGoaled,
+    completeBy: completeBy,
+    onGoalset: onGoalset,
     onDelete: onDelete
   };
 }, TaskItem);

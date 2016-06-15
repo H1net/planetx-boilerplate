@@ -27,15 +27,15 @@ const getQuery = (filter, options)=> {
   }
 
   switch (filter) {
-    case 'SHOW_COMPLETED':
-      query.completed = true;
-      break;
     case 'SHOW_ACTIVE':
       query.completed = false;
       break;
     default:
       break;
   }
+
+  // console.log("QUERY 0-> ", query);
+
 
   return query;
 }

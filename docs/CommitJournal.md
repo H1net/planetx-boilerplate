@@ -1,7 +1,23 @@
 # 5. Task: Update and Delete
 ### 5.B.) Task Item Expiration
-##### 5.B.2) Rebuilt Task Item as custom component
+##### 5.B.3) New Task Goal Component
 commit: `{this}`
+
+branch: `5/extraCredit/task_expiration`
+
+Message: `** broken ** 5.B.3) Create Task Goal component`
+
+Notes:
+* `FIXME: SetGoalBtn opens date picker dialog, but closing menu closes the date picker`
+* `FIXME: Toggle Closed isn't isolated per list`
+* `Part 1 of the Extra Credit`
+
+References:
+* [Refs](https://facebook.github.io/react/docs/more-about-refs.html#cautions)
+
+
+##### 5.B.2) Rebuilt Task Item as custom component
+commit: `#ef0ab42d`
 
 branch: `5/extraCredit/task_expiration`
 
@@ -47,7 +63,6 @@ Files:
 
 References:
 *  [How-We-Redux-Todos](git+https://github.com/abhiaiyer91/How-We-Redux-Todos.git)
-
 
 
 ##### 5.B.1) Branch Init
@@ -100,7 +115,6 @@ Files:
   *  `/server/fixtures.js`
   *  `subscriptions.js`
   *  `views.js`
-
 
 
 # 4. Task: Form and Events

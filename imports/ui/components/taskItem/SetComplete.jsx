@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { updateTask } from '../../../api/taskItems/methods.js';
 
-import { amber100, amber800 } from 'material-ui/styles/colors';
-import Undo from 'material-ui/svg-icons/content/undo';
+import { grey300, green600 } from 'material-ui/styles/colors';
+import CheckCircle from 'material-ui/svg-icons/action/check-circle';
 
 // TaskItem_Complete: set complete/uncomplete
-export default class UnCompleteTaskItem extends Component {
+export default class setTaskCompleted extends Component {
   constructor(props) {
     super(props);
 
@@ -18,10 +17,10 @@ export default class UnCompleteTaskItem extends Component {
     const style = {
       display: "inline-block",
       position: "absolute",
-      right: 0,
+      left: 0,
       top: 0,
       verticalAlign: "middle",
-      marginRight: 4,
+      marginLeft: 4,
       cursor: "pointer",
     };
 
@@ -37,11 +36,12 @@ export default class UnCompleteTaskItem extends Component {
       width: 20,
       height: 20,
     };
+    // const tooltip = (state)=> state? "Not Finished" : "Complete";
 
     return (
-      <Undo
-        color={amber100}
-        hoverColor={amber800}
+      <CheckCircle
+        color={grey300}
+        hoverColor={green600}
         style={style}
         onTouchTap={this.handleComplete.bind(this)}
       />
@@ -54,7 +54,7 @@ export default class UnCompleteTaskItem extends Component {
   };
 }
 
-UnCompleteTaskItem.propTypes = {
+setTaskCompleted.propTypes = {
   taskId: PropTypes.string.isRequired,
   onComplete: PropTypes.func.isRequired,
 };

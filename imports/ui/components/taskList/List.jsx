@@ -23,7 +23,7 @@ class TaskList extends Component {
       height: "100%",
       maxHeight: "500px",
       padding: "10px",
-      width: "300px",
+      width: "350px",
       margin: "10px",
       textAlign: 'center',
       display: 'inline-block',
@@ -39,10 +39,12 @@ class TaskList extends Component {
 
   renderList() {
     // if(this.props.listId){console.log("listId 0> ", this.props.listId);}
-
+    const style = {
+      paddingTop: "0px",
+    };
     return (
-      <List>
-        <TaskHeader title={this.props.title} />
+      <List style={style}>
+        <TaskHeader title={this.props.title} visibilityFilter={this.props.visibilityFilter} />
         <TaskItems listId={this.props.listId} />
         <NewTaskItem
           listId={this.props.listId}
@@ -63,6 +65,7 @@ class TaskList extends Component {
 
 TaskList.propTypes = {
   listId: PropTypes.string.isRequired,
+  visibilityFilter: PropTypes.string.isRequired,
 };
 
 export default TaskList;

@@ -20,13 +20,15 @@ class TaskItems extends Component {
       const taskItems = [...tasks].map( (task)=> {
         return (
           <TaskItem
-            key=        {task._id}
-            taskId=     {task._id}
-            text=       {task.text}
-            completed=  {task.completed? true:false}
-            onComplete= {this.onCompleteTaskItem}
-            onDelete=   {this.onDeleteTaskItem}
-            onArchive=  {this.onArchiveTaskItem}
+            key=          {task._id}
+            taskId=       {task._id}
+            text=         {task.text}
+            isCompleted=  {task.completed? true:false}
+            onComplete=   {this.onCompleteTaskItem}
+            isGoaled=     {task.completeBy? true:false}
+            completeBy=   {task.completeBy}
+            onGoalset=    {this.onGoalsetTaskItem}
+            onDelete=     {this.onDeleteTaskItem}
           />
         );
       });
@@ -37,30 +39,19 @@ class TaskItems extends Component {
   }
 
   onCompleteTaskItem = taskId => {
-    const { dispatch } = this.props;
-
     const selector = {_id: taskId};
     let task = _.find(this.props.tasks, selector);
     const result = task.completed? false:true;
 
-    updateTask.call({taskId: taskId, completed: result})
-    // dispatch(  );
-
+    updateTask.call({taskId: taskId, completed: result});
   }
 
-  // ** onDelete works
   onDeleteTaskItem = taskId => {
     deleteTask.call({taskId: taskId}); //update DB
-    // const tasks = _.remove(this.props.tasks, {_id: taskId});
-    // this.setState({ tasks: tasks });
-    // const tasks = _.remove(this.props.tasks, {_id: taskId})
-    // this.setState({ tasks: tasks })
   }
-  onArchiveTaskItem = taskId => {
-    deleteTask.call({taskId: taskId}); //update DB
-    // const tasks = _.remove(this.props.tasks, {_id: taskId});
-    // this.setState({ tasks: tasks });
-    console.log("DELETED THE TASK - ARCHIVE NOT BUILT");
+
+  onGoalsetTaskItem = (taskId, completeBy) => {
+    updateTask.call({taskId: taskId, completeBy: completeBy}); //update DB
   }
 }
 

@@ -9,15 +9,16 @@ import './factories.js';
 export const insertTask = new ValidatedMethod({
   name: 'taskItems.insert',
   validate: new SimpleSchema({
-    _id: {type: String, optional: true },
-    createdAt: {type: Date, optional: true },
-    owner: {type: String, optional: true },
-    username: {type: String, optional: true },
-    listId: {type: String, optional: true },
-    text: { type: String, optional: true },
-    completed: { type: Boolean, optional: true },
+    _id:        {type: String },
+    createdAt:  {type: Date, optional: true },
+    owner:      {type: String, optional: true },
+    username:   {type: String, optional: true },
+    listId:     {type: String },
+    text:       {type: String },
+    completed:  {type: Boolean, optional: true },
+    completeBy: {type: Date, optional: true}
   }).validator(),
-  run({ text , listId, completed}) {
+  run({ text , listId, completed, completeBy}) {
 
     // Make sure the user is logged in before inserting a task
     // if (! this.userId) {
@@ -31,6 +32,7 @@ export const insertTask = new ValidatedMethod({
       listId,
       text,
       completed,
+      completeBy,
     });
 
   }
@@ -39,9 +41,10 @@ export const insertTask = new ValidatedMethod({
 export const updateTask = new ValidatedMethod({
   name: 'taskItems.update',
   validate: new SimpleSchema({
-    taskId:   {type: String },
-    text:     {type: String, optional: true },
+    taskId:     {type: String },
+    text:       {type: String, optional: true },
     completed:  {type: Boolean, optional: true },
+    completeBy: {type: Date, optional: true },
   }).validator(),
   run({taskId, text, completed }) {
     console.log(`[API:TaskUpdate]: ${taskId} => completed: ${completed}`);
